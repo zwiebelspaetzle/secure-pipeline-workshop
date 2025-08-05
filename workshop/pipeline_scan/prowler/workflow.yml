@@ -1,0 +1,98 @@
+# =============================================================================
+# PROWLER REPOSITORY SCAN JOB
+# =============================================================================
+#
+# Prowler is a security scanner for Cloud Infrastructure
+# Repository: https://github.com/prowler-cloud/prowler
+#
+# PREREQUISITES:
+#
+# > Using Github App (recommended):
+#
+#   - Follow the instructions to create a Github App from:
+#     https://docs.prowler.com/projects/prowler-open-source/en/latest/tutorials/github/getting-started-github/#3-github-app-credentials
+#
+#   - Add the Github App credentials as secrets in the repository, called:
+#     - `GH_APP_ID`
+#     - `GH_APP_PRIVATE_KEY`
+#
+# > Using Github Personal Acces Token (faster):
+#
+#   - A GitHub personal access token with access to the repository
+#     with the following permissions:
+#       - Read access to:
+#         - Dependabot alerts
+#         - Administration
+#         - Code
+#         - Commit statuses
+#         - Merge queues
+#         - Metadata
+#         - Pages
+#         - Pull requests
+#         - Repository advisories
+#         - Secret scanning alert dismissal requests
+#         - Secret scanning alerts
+#         - Secret scanning push protection bypass requests
+#         - Security events
+#
+#   - The token must be stored as a secret in the repository, called `GH_PAT`
+#
+# TO USE THIS JOB:
+# 1. Copy this job definition into .github/workflows/pipeline-scan.yml
+# 2. Add is as a new step called `repository-scan`
+# 3. The job will automatically scan the current repository settings
+# 4. The scan will fail if any security issues are found in the repository
+#
+# Note: This job is complementary to the other pipeline scan jobs, as focuses
+#       on the repository settings and not on the GitHub Actions workflows.
+# =============================================================================
+
+jobs:
+  repository-scan:
+    name: Repository Scan with Prowler
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.scan-result.outputs.result }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Install Prowler
+        run: |
+            # TODO: Installing from commit until 5.10 is released
+            pipx install git+https://github.com/prowler-cloud/prowler.git@ccd1afa8779e34e50a84993fa932e257feaf27af
+            prowler -v
+
+      - name: Run Prowler
+        id: prowler
+        env:
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_APP_ID: ${{ secrets.GH_APP_ID }}
+          GITHUB_APP_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+        # We will run just a few subset of checks for time purposes
+        run: |
+            prowler github --repository ${{ github.repository }} \
+              --checks repository_public_has_securitymd_file repository_default_branch_protection_enabled repository_default_branch_status_checks_required \
+              --output-formats html
+
+      - name: Upload Prowler HTML Report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: prowler-html-report
+          path: output/*.html
+          retention-days: 1
+
+      - name: Set scan result
+        id: scan-result
+        if: always()
+        run: |
+          if [ "${{ steps.prowler.outcome }}" == "success" ]; then
+            echo "result=success" >> "$GITHUB_OUTPUT"
+            echo "✅ Pipeline scan passed"
+          else
+            echo "result=failure" >> "$GITHUB_OUTPUT"
+            echo "❌ Pipeline scan failed"
+          fi

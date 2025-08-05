@@ -1,0 +1,59 @@
+# =============================================================================
+# TRIVY IAC SCAN JOB
+# =============================================================================
+#
+# Trivy is a vulnerability scanner for container images and filesystems
+# Repository: https://github.com/aquasecurity/trivy
+#
+# TO USE THIS JOB:
+# 1. Copy this entire job definition into .github/workflows/iac-scan.yml
+# 2. Replace the current jobs: definition with this one
+# 3. The job will automatically scan all files in infra/
+# 4. The scan will fail if any security issues are found
+# =============================================================================
+
+jobs:
+  iac-scan:
+    name: IAC Scan with Trivy
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.scan-result.outputs.result }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Run Trivy vulnerability scanner
+        id: scan-tool
+        uses: aquasecurity/trivy-action@915b19bbe73b92a6cf82a1bc12b087c9a19a5fe2 # 0.28.0
+        with:
+          scan-type: 'config'
+          scan-ref: infra/
+          hide-progress: true
+          format: 'sarif'
+          limit-severities-for-sarif: true
+          output: 'trivy-results.sarif'
+          exit-code: '1'
+          severity: 'CRITICAL,HIGH'
+        continue-on-error: false
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@51f77329afa6477de8c49fc9c7046c15b9a4e79d #3.29.5
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Set scan result
+        id: scan-result
+        if: always()
+        run: |
+          if [ "${{ steps.scan-tool.outcome }}" == "success" ]; then
+            echo "result=success" >> "$GITHUB_OUTPUT"
+            echo "✅ IAC scan passed - no security issues found"
+          else
+            echo "result=failure" >> "$GITHUB_OUTPUT"
+            echo "❌ IAC scan failed - security issues detected"
+            exit 1
+          fi

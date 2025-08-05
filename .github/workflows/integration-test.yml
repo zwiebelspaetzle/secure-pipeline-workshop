@@ -1,0 +1,33 @@
+name: Integration Test
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "Environment to test"
+        required: true
+        type: string
+      app-url:
+        description: "Application URL to test"
+        required: true
+        type: string
+    outputs:
+      integration-test-result:
+        description: "Integration test result"
+        value: ${{ jobs.integration-test.outputs.result }}
+
+jobs:
+  # 🚧 REPLACE THIS ENTIRE 'jobs:' SECTION WITH WORKSHOP CONTENT! 🚧
+  # Copy from: workshop/integration_test/{tool}/workflow.yml
+  integration-test:
+    name: "🚧 Integration Test - Workshop Placeholder"
+    runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.placeholder.outputs.result }}
+    steps:
+      - name: Workshop Placeholder
+        id: placeholder
+        run: |
+          echo "🚧 Replace this job with content from workshop/integration_test/{tool}/workflow.yml!"
+          echo "This will implement: Integration testing with your chosen tool"
+          echo "result=workshop-placeholder" >> "$GITHUB_OUTPUT"

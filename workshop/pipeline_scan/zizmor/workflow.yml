@@ -1,0 +1,33 @@
+# =============================================================================
+# ZIZMOR PIPELINE SCAN JOB
+# =============================================================================
+#
+# Zizmor is a security scanner for GitHub Actions workflows
+# Repository: https://github.com/woodruffw/zizmor
+#
+# TO USE THIS JOB:
+# 1. Copy this entire job definition into .github/workflows/pipeline-scan.yml
+# 2. Replace the current jobs: definition with this one
+# 3. The job will automatically scan all workflows in .github/workflows/
+# 4. Results will be uploaded to GitHub Advanced Security (SARIF format)
+# 5. Configure min-severity level as needed (low, medium, high, unknown)
+# =============================================================================
+
+jobs:
+  zizmor:
+    name: Run zizmor 🌈
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read # only needed for private repos
+      actions: read # only needed for private repos
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Run zizmor 🌈
+        uses: zizmorcore/zizmor-action@main
+        with:
+          min-severity: "high"
