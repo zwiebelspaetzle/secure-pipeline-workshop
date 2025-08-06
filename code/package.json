@@ -1,0 +1,20 @@
+{
+  "name": "simple-workshop-app",
+  "version": "1.0.0",
+  "description": "Simple demo application for perfect pipeline workshop",
+  "main": "src/simple-app.js",
+  "scripts": {
+    "start": "node src/simple-app.js",
+    "build": "echo 'No build needed for simple app'",
+    "test": "echo 'No tests configured'"
+  },
+  "dependencies": {
+    "lodash": "4.17.15"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Workshop Team",
+  "license": "MIT"
+}

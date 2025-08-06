@@ -1,0 +1,33 @@
+name: Deploy Infrastructure
+
+on:
+  workflow_call:
+    outputs:
+      deployment-result:
+        description: "Infrastructure deployment result"
+        value: ${{ jobs.deploy-infra.outputs.result }}
+
+jobs:
+  deploy-infra:
+    name: Deploy Infrastructure
+    runs-on: ubuntu-latest
+    environment: production
+    outputs:
+      result: ${{ steps.deploy.outputs.result }}
+    steps:
+      - name: Deploy infrastructure
+        id: deploy
+        run: |
+          echo "🚀 Deploying infrastructure to production..."
+          echo "🏗️ Terraform plan -var environment=production"
+          echo "🏗️ Terraform apply -auto-approve"
+          echo "result=deployed" >> "$GITHUB_OUTPUT"
+          echo "✅ Infrastructure deployed successfully"
+
+      - name: Infrastructure Summary
+        run: |
+          echo "🏗️ Infrastructure Deployment Summary:"
+          echo "- Environment: production"
+          echo "- Region: us-west-2"
+          echo "- Resources: VPC, Subnets, Security Groups, EC2"
+          echo "- Status: Healthy"
