@@ -8,7 +8,7 @@
 #
 # PREREQUISITES:
 # - Create your own GEMINI_API_KEY from https://aistudio.google.com/apikey
-# - Set up GEMINI_API_KEY secret in your repository settings
+# - Configure Gemini API key as Repository Secret, called `GEMINI_API_KEY`
 #
 # TO USE THIS JOB:
 # 1. Copy this entire job definition into .github/workflows/ai-scan.yml
