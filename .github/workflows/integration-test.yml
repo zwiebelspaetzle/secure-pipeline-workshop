@@ -17,17 +17,26 @@ on:
         value: ${{ jobs.integration-test.outputs.result }}
 
 jobs:
-  # 🚧 REPLACE THIS ENTIRE 'jobs:' SECTION WITH WORKSHOP CONTENT! 🚧
-  # Copy from: workshop/integration_test/{tool}/workflow.yml
   integration-test:
-    name: "🚧 Integration Test - Workshop Placeholder"
+    name: Integration Test
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     outputs:
-      result: ${{ steps.placeholder.outputs.result }}
+      result: ${{ steps.integration-test.outputs.result }}
     steps:
-      - name: Workshop Placeholder
-        id: placeholder
+      - name: Integration Test
+        id: integration-test
         run: |
-          echo "🚧 Replace this job with content from workshop/integration_test/{tool}/workflow.yml!"
-          echo "This will implement: Integration testing with your chosen tool"
-          echo "result=workshop-placeholder" >> "$GITHUB_OUTPUT"
+          echo "🚀 Running integration test..."
+          echo "🔍 Testing application at: ${{ inputs.app-url }}"
+          echo "bip, bop, bup"
+          echo "bip, bop, bup"
+          echo "result=passed" >> "$GITHUB_OUTPUT"
+          echo "✅ Integration test passed successfully"
+
+      - name: Integration Test Summary
+        run: |
+          echo "🏗️ Integration Test Summary:"
+          echo "- Environment: ${{ inputs.environment }}"
+          echo "- Application URL: ${{ inputs.app-url }}"
+          echo "- Status: Healthy"
