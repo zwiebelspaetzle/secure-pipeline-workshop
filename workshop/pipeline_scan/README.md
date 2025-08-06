@@ -47,6 +47,7 @@ By the end of this module, you will:
 - [GitHub Action tj-actions/changed-files supply chain attack: everything you need to know](https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066): A supply chain attack on popular GitHub Action tj-actions/changed-files caused many repositories to leak their secrets.
 
 ### GitHub Actions
+- [nikitastupin/pwnhub](https://github.com/nikitastupin/pwnhub): Repository collecting resources about how GitHub Actions workflows can be hacked.
 - [GitHub Actions Attack Diagram](https://github.com/jstawinski/GitHub-Actions-Attack-Diagram/blob/main/GitHub%20Actions%20Attack%20Diagram.svg): GitHub Actions Attack Diagram provides guidance for identifying GitHub Actions vulnerabilities.
 - [How to Harden GitHub Actions: The Unofficial Guide](https://www.wiz.io/blog/github-actions-security-guide): A guide to hardening GitHub Actions.
 - [GitHub Actions: Secure Use Reference](https://docs.github.com/en/enterprise-cloud@latest/actions/reference/secure-use-reference)
