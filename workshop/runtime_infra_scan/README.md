@@ -11,11 +11,33 @@ Continuous runtime scanning helps ensure your infrastructure remains secure afte
 
 ## Common Runtime Infrastructure Issues
 
-- **Misconfigurations** - Public exposed resources, weak IAM policies, unrestricted security groups
-- **IAM vulnerabilities** - Credential theft, privilege escalation, brute force attacks
-- **Insecure APIs and Interfaces** - API key leaks, MITM attacks, rate-limiting bypass
-- **Data Breaches and Exfiltration** - Unencrypted data exposure, insider threats, SQL injection attacks.
-- **Inadequate Monitoring and Logging** - Log tampering, cryptojacking, lack of real-time alerts
+Many of these issues are shared with the [IaC Security](../iac_scan/) module.
+
+### Access Control
+- **Overly Permissive IAM Policies** – wildcard privileges and never-used rights that violate least-privilege.
+- **Publicly Accessible Resources** – buckets, APIs, or DBs left open to the internet.
+- **Missing Authentication Controls** – services deployed with no auth/MFA, allowing unauthenticated calls.
+- **Default or Weak Credentials** – reused passwords and default logins vulnerable to brute-force.
+
+### Encryption
+- **Unencrypted Storage at Rest** – plaintext data in S3, EBS, RDS, state files.
+- **Unencrypted Backups & Snapshots** – archives stored without server- or client-side encryption.
+- **Missing TLS/In-Transit Encryption** – APIs or internal links still on plain HTTP or legacy protocols.
+- **Weak or Outdated Cipher Suites** – obsolete algorithms or short keys still in use.
+
+### Network Security
+- **Open Security Groups (0.0.0.0/0)** – internet-wide access to SSH, RDP, or high-risk custom ports.
+- **Public-Subnet Exposure** – instances or containers with public IPs sitting in public subnets.
+- **Mis-scoped Load Balancers/Endpoints** – “internal” services accidentally reachable from the internet.
+
+### Compliance & Governance
+- **Insufficient Logging & Audit Trails** – generating blind spots for forensics and incident response.
+- **Lack of Continuous Monitoring/Alerts** – misconfigurations persist until breach or audit.
+- **Missing Resource Tagging** – untagged assets break cost, ownership, and policy enforcement.
+- **Improper Backup Retention/Encryption** – backups stored unencrypted or outside mandated retention windows.
+
+### Differences from IaC Scan
+- **Drift** – resources that are not managed by IaC, such as manual changes to resources or manual deployments.
 
 ## Tools Used in This Module
 
