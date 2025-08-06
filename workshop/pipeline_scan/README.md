@@ -45,6 +45,7 @@ By the end of this module, you will:
 
 ## References
 - [GitHub Action tj-actions/changed-files supply chain attack: everything you need to know](https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066): A supply chain attack on popular GitHub Action tj-actions/changed-files caused many repositories to leak their secrets.
+- [LOTP (Living Off the Pipeline)](https://boostsecurityio.github.io/lotp/): Inventory of development tools, commonly used in CI/CD pipelines, that have RCE-By-Design features.
 
 ### GitHub Actions
 - [nikitastupin/pwnhub](https://github.com/nikitastupin/pwnhub): Repository collecting resources about how GitHub Actions workflows can be hacked.
