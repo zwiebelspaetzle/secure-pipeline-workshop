@@ -20,7 +20,6 @@ Pipeline security scanning analyzes your CI/CD workflows, configurations, and au
 
 - [**Claws**](https://github.com/Betterment/claws) - Static analysis tool to help write safer GitHub Actions workflows
 - [**Zizmor**](https://github.com/woodruffw/zizmor) - Security scanner for finding issues in GitHub Actions workflows
-- [**Prowler**](https://github.com/prowler-cloud/prowler) - Security scanner for cloud infrastructure
 
 ## Learning Objectives
 
@@ -42,6 +41,8 @@ By the end of this module, you will:
 ## Extra Balls
 - [Warden Ruse Return](./extra/WardenRuseReturns)
 - [actions/checkout can leak GitHub credentials](extra/checkoutLeak/README.md)
+- [**Prowler**](https://github.com/prowler-cloud/prowler) - Prowler allows you to scan Github for repository and organization misconfigurations.
+  - We prepared a template for you to use in the `pipeline_scan` module.
 
 ## References
 - [GitHub Action tj-actions/changed-files supply chain attack: everything you need to know](https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066): A supply chain attack on popular GitHub Action tj-actions/changed-files caused many repositories to leak their secrets.
