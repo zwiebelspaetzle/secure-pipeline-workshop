@@ -41,7 +41,7 @@ By the end of this module, you will:
 ## Extra Balls
 - [Warden Ruse Return](./extra/WardenRuseReturns)
 - [actions/checkout can leak GitHub credentials](extra/checkoutLeak/README.md)
-- [**Prowler**](https://github.com/prowler-cloud/prowler) - Prowler allows you to scan Github for repository and organization misconfigurations.
+- [Prowler: Repository Settings Scan](https://github.com/prowler-cloud/prowler) - Prowler allows you to scan Github for repository and organization misconfigurations.
   - We prepared a template for you to use in the `pipeline_scan` module.
 
 ## References
