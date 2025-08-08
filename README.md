@@ -1,6 +1,6 @@
-# Perfect Pipeline Workshop
+# Secure Pipeline Workshop
 
-Welcome to the "Perfect Pipeline" workshop! This hands-on workshop teaches you how to build a comprehensive security-focused CI/CD pipeline with multiple layers of security scanning and best practices.
+Welcome to the "Secure Pipeline" workshop! This hands-on workshop teaches you how to build a comprehensive security-focused CI/CD pipeline with multiple layers of security scanning and best practices.
 
 ## 🏗️ Workshop Structure
 
