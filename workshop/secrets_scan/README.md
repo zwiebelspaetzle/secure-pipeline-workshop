@@ -23,7 +23,7 @@ Secrets scan involves scanning code repositories, commit history, and configurat
 ### Common Types of Secrets
 
 #### **Generic Credentials**
-- Hard-coded passwords, database connection strings, custom tokens, plaintext encryption keys
+- Hardcoded passwords, database connection strings, custom tokens, plaintext encryption keys
 - 58% of all detected secrets [^1]
 #### **Database Service Credentials**
 - MongoDB connection strings, MySQL/PostgreSQL credentials
